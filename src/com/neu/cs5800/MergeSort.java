@@ -4,6 +4,8 @@ import java.util.Arrays;
 //Purpose: The classic merge sort
 
 public class MergeSort {
+	int inv_count=0;
+	
 	// recursively divide and sort the array
 	@SuppressWarnings("rawtypes")
 	public Comparable[] startMergeSort(Comparable[] array){
@@ -29,7 +31,7 @@ public class MergeSort {
 		int left_counter =0;
 		int right_counter =0;
 		int result_counter=0;
-		int inv_count=0;
+		//int inv_count=0;
 		
 		while(left_counter<left.length && right_counter<right.length){
 			if(left[left_counter].compareTo(right[right_counter]) <0){
@@ -39,7 +41,7 @@ public class MergeSort {
 			else{
 				array[result_counter]=right[right_counter];
 				right_counter++;
-				inv_count += left.length;
+				inv_count+=left.length;
 			}
 			result_counter++;
 		}
@@ -50,7 +52,7 @@ public class MergeSort {
 	}
 	
 	public static void main(String[] args) {
-		Integer [] array = {5, 8, 9, 2, 4, 1, 6, 8};
+		Integer [] array = {5, 4, 3, 2, 1, 0};
 		
 		MergeSort ms = new MergeSort();
 		System.out.println(Arrays.toString(ms.startMergeSort(array)));
