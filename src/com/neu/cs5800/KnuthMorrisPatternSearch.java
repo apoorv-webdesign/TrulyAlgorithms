@@ -3,22 +3,36 @@ package com.neu.cs5800;
 import java.util.Arrays;
 
 //Knuth Morris Pattern search algorithm
+// Complexity O(m+n), m=length of text and n = length of pattern
 public class KnuthMorrisPatternSearch {
 	
-	boolean patternSearchKMP(String s, String p){
-		int [] pattern_array= createNumericPattern(p);
-		
-		for(int i=0; i<s.length();i++){
-			
-		}
-		return false;
+	boolean patternSearchKMP(char[] text, char[] pattern){
+		int [] pattern_array= createNumericPattern(pattern);
+        int i=0;
+        int j=0;
+        while(i < text.length && j < pattern.length){
+            if(text[i] == pattern[j]){
+                i++;
+                j++;
+            }else{
+                if(j!=0){
+                    j = pattern_array[j-1];
+                }else{
+                    i++;
+                }
+            }
+        }
+        if(j == pattern.length){
+            return true;
+        }
+        return false;
 	}
 
-	int[] createNumericPattern(String p) {
-		int [] pattern_array=new int[p.length()];
+	int[] createNumericPattern(char[] p) {
+		int [] pattern_array=new int[p.length];
 		int i=1, j=0;
-		while(i<p.length()){
-			if(p.charAt(i)==p.charAt(j)){
+		while(i<p.length){
+			if(p[i]==p[j]){
 				pattern_array[i]= j+1;
 				i++;
 				j++;
@@ -37,9 +51,9 @@ public class KnuthMorrisPatternSearch {
 
 	public static void main(String[] args) {
 		String s = "aabccbbaabbccbbaaccaabb";
-		String pattern = "aaabbbbcabc";
+		String pattern = "ccbbaa";
 		KnuthMorrisPatternSearch kmps = new KnuthMorrisPatternSearch();
-		kmps.patternSearchKMP(s, pattern);
+		System.out.println(kmps.patternSearchKMP(s.toCharArray(), pattern.toCharArray()));
 	}
 
 }
